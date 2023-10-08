@@ -12,6 +12,7 @@ import (
 	_ "github.com/lib/pq"
 	"golang.org/x/exp/slog"
 	configuration "gorest.israel.parodi/config"
+	"gorest.israel.parodi/internal/data"
 )
 
 const version = "1.0.0"
@@ -30,6 +31,7 @@ type config struct {
 type application struct {
 	config config
 	logger *slog.Logger
+	models data.Models
 }
 
 var env configuration.Environment
@@ -67,6 +69,7 @@ func main() {
 	app := &application{
 		config: cfg,
 		logger: logger,
+		models: data.NewModels(db),
 	}
 
 	srv := &http.Server{

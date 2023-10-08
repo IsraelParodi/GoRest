@@ -13,7 +13,7 @@ drop-db:
 	docker exec -it postgres16 dropdb gorest
 
 run:
-	go run ./cmd/api -db-max-open-conns=50 -db-max-idle-conns=50 -db-max-idle-time=2h30m
+	go run ./cmd/api
 
 create-migration:
 	migrate create -seq -ext=.sql -dir=./migrations $(MIGRATION_NAME)
@@ -26,3 +26,6 @@ migrate-down:
 
 migrate-force:
 	migrate -path ./migrations -database "$(DB_SOURCE)" force 1
+
+sqlc:
+	sqlc generate
