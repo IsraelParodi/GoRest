@@ -16,7 +16,7 @@ run:
 	go run ./cmd/api
 
 create-migration:
-	migrate create -seq -ext=.sql -dir=./migrations $(MIGRATION_NAME)
+	migrate create -seq -ext=.sql -dir=./migrations $(word 2, $(MAKECMDGOALS))
 
 migrate-up:
 	migrate -path ./migrations -database "$(DB_SOURCE)" up
